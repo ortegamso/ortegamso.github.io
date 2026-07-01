@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{OMSDev} | AI Learning Lab</title>
-    <!-- Tailwind CSS desde CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -19,12 +18,10 @@
             }
         }
     </script>
-    <!-- Iconos de Lucide -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lucide@latest" async></script>
 </head>
 <body class="bg-brandDark text-gray-100 font-sans antialiased selection:bg-brandPurple/30">
 
-    <!-- Navegación -->
     <header class="border-b border-gray-800 backdrop-blur-md bg-brandDark/80 sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
             <div class="text-2xl font-bold flex items-center gap-2">
@@ -43,13 +40,10 @@
         </div>
     </header>
 
-    <!-- Héroe / Portada principal -->
     <section class="max-w-6xl mx-auto px-4 pt-16 pb-20 text-center relative overflow-hidden">
-        <!-- Decoración de fondo -->
         <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-72 h-72 bg-brandPurple/20 rounded-full blur-[120px] pointer-events-none"></div>
         <div class="absolute top-20 left-1/3 w-60 h-60 bg-brandOrange/10 rounded-full blur-[100px] pointer-events-none"></div>
 
-        <!-- Badge -->
         <div class="inline-flex items-center gap-2 border border-brandPurple/30 bg-brandPurple/5 rounded-full px-4 py-1.5 mb-6 text-xs md:text-sm text-brandPurple font-medium tracking-wide">
             <i data-lucide="terminal" class="w-4 h-4"></i> Build with AI 
             <span class="w-1.5 h-1.5 bg-brandOrange rounded-full animate-pulse"></span>
@@ -67,7 +61,6 @@
             Aprende a crear soluciones de software reales. Cursos interactivos diseñados para la industria de hoy bajo la infraestructura tecnológica más robusta.
         </p>
 
-        <!-- CTA Principal Formulario Supabase -->
         <div class="max-w-sm mx-auto" id="registro">
             <form id="lead-form" class="w-full">
                 <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
@@ -86,13 +79,11 @@
                         Unirse a la lista
                     </button>
                 </div>
-                <!-- Mensajes de estado -->
-                <p id="form-message" class="text-xs mt-3 hidden text-center"></p>
+                <p id="form-message" class="text-xs mt-3 hidden text-center font-medium"></p>
             </form>
         </div>
     </section>
 
-    <!-- Sección de Inspiración / Tecnología -->
     <section class="border-t border-gray-900 bg-gray-950/50 py-12" id="metodologia">
         <div class="max-w-6xl mx-auto px-4 text-center">
             <p class="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-6">Inspirado en los estándares de</p>
@@ -107,7 +98,6 @@
         </div>
     </section>
 
-    <!-- Características del Lab -->
     <section class="max-w-6xl mx-auto px-4 py-20" id="cursos">
         <div class="text-center mb-16">
             <h2 class="text-3xl font-bold mb-4">¿Por qué estudiar en OMSDev?</h2>
@@ -115,7 +105,6 @@
         </div>
 
         <div class="grid md:grid-cols-3 gap-8">
-            <!-- Card 1 -->
             <div class="bg-gray-900/40 border border-gray-800 p-6 rounded-2xl hover:border-gray-700 transition">
                 <div class="w-10 h-10 rounded-lg bg-brandPurple/10 flex items-center justify-center text-brandPurple mb-4">
                     <i data-lucide="code-2"></i>
@@ -123,7 +112,6 @@
                 <h3 class="text-lg font-semibold mb-2">Código Limpio y Real</h3>
                 <p class="text-gray-400 text-sm leading-relaxed">No hacemos soluciones de juguete. Diseñamos arquitectura y desarrollo escalable desde la primera línea.</p>
             </div>
-            <!-- Card 2 -->
             <div class="bg-gray-900/40 border border-gray-800 p-6 rounded-2xl hover:border-gray-700 transition">
                 <div class="w-10 h-10 rounded-lg bg-brandOrange/10 flex items-center justify-center text-brandOrange mb-4">
                     <i data-lucide="cpu"></i>
@@ -131,7 +119,6 @@
                 <h3 class="text-lg font-semibold mb-2">Integración con IA</h3>
                 <p class="text-gray-400 text-sm leading-relaxed">Aprende a programar de la mano de Modelos de Lenguaje para multiplicar tu productividad por diez.</p>
             </div>
-            <!-- Card 3 -->
             <div class="bg-gray-900/40 border border-gray-800 p-6 rounded-2xl hover:border-gray-700 transition">
                 <div class="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400 mb-4">
                     <i data-lucide="graduation-cap"></i>
@@ -142,7 +129,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="border-t border-gray-900 py-12 bg-gray-950" id="nosotros">
         <div class="max-w-6xl mx-auto px-4 text-center">
             
@@ -160,25 +146,25 @@
         </div>
     </footer>
 
-    <!-- SDK de Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
-        // Inicializar Iconos de Lucide
-        lucide.createIcons();
+        // Inicializar Iconos de manera segura por si falla el CDN
+        window.addEventListener('DOMContentLoaded', () => {
+            try {
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+            } catch (e) {
+                console.warn("Lucide no pudo cargarse, omitiendo iconos:", e);
+            }
+        });
 
-        // Configuración de Credenciales de Supabase
-        // Si usas el flujo de GitHub Actions, mantén los placeholders.
-        // Si vas a subirlo directo sin Actions, puedes cambiar los textos de abajo por tus llaves directamente.
-        const SUPABASE_URL = "VITE_SUPABASE_URL_PLACEHOLDER" === "VITE_SUPABASE_URL_PLACEHOLDER" 
-            ? "https://wdqpcwabyebhekqzghcs.supabase.co" 
-            : "VITE_SUPABASE_URL_PLACEHOLDER";
-            
-        const SUPABASE_ANON_KEY = "VITE_SUPABASE_ANON_KEY_PLACEHOLDER" === "VITE_SUPABASE_ANON_KEY_PLACEHOLDER" 
-            ? "sb_publishable_XoHxcz5l7J3MjXPQJnBLbA_ytf668K7" 
-            : "VITE_SUPABASE_ANON_KEY_PLACEHOLDER";
+        // Configuración de Credenciales (Error del símbolo '@' removido)
+        const SUPABASE_URL = "https://wdqpcwabyebhekqzghcs.supabase.co";
+        const SUPABASE_ANON_KEY = "sb_publishable_XoHxcz5l7J3MjXPQJnBLbA_ytf668K7";
 
-        const supabase = @supabase/supabase-js.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         // Control del Formulario
         const form = document.getElementById('lead-form');
@@ -186,36 +172,48 @@
         const submitBtn = document.getElementById('btn-submit');
         const messageTxt = document.getElementById('form-message');
 
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const email = emailInput.value.trim();
-            
-            submitBtn.disabled = true;
-            submitBtn.innerText = "Registrando...";
-            messageTxt.classList.add('hidden');
-
-            try {
-                const { error } = await supabase
-                    .from('leads')
-                    .insert([{ email: email }]);
-
-                if (error) throw error;
-
-                // Registro Exitoso
-                messageTxt.innerText = "¡Excelente! Ya formas parte del Lab.";
-                messageTxt.className = "text-xs mt-3 text-emerald-400 font-medium block";
-                emailInput.value = ""; 
+        if (form) {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
                 
-            } catch (error) {
-                console.error("Error detectado:", error);
-                messageTxt.innerText = "Hubo un problema o este correo ya está en la lista.";
-                messageTxt.className = "text-xs mt-3 text-brandOrange font-medium block";
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerText = "Unirse a la lista";
-            }
-        });
+                const email = emailInput.value.trim();
+                
+                // Bloquear UI durante la carga
+                submitBtn.disabled = true;
+                submitBtn.innerText = "Registrando...";
+                
+                if (messageTxt) {
+                    messageTxt.classList.add('hidden');
+                }
+
+                try {
+                    const { error } = await supabase
+                        .from('leads')
+                        .insert([{ email: email }]);
+
+                    if (error) throw error;
+
+                    // Caso de Éxito
+                    if (messageTxt) {
+                        messageTxt.innerText = "¡Excelente! Ya formas parte del Lab.";
+                        messageTxt.className = "text-xs mt-3 text-emerald-400 font-medium block text-center";
+                    }
+                    emailInput.value = ""; 
+                    
+                } catch (error) {
+                    console.error("Error detectado en Supabase:", error);
+                    // Caso de Error
+                    if (messageTxt) {
+                        messageTxt.innerText = "Hubo un problema o este correo ya está registrado.";
+                        messageTxt.className = "text-xs mt-3 text-brandOrange font-medium block text-center";
+                    }
+                } finally {
+                    // Desbloquear UI
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = "Unirse a la lista";
+                }
+            });
+        }
     </script>
 </body>
 </html>
