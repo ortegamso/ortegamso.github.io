@@ -146,10 +146,11 @@
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module">
+        // Importación de la librería usando ESM para evitar errores "Supabase is not defined"
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
 
-    <script>
-        // Inicializar Iconos de manera segura por si falla el CDN
+        // Inicializar Iconos de Lucide de forma segura en el flujo global
         window.addEventListener('DOMContentLoaded', () => {
             try {
                 if (typeof lucide !== 'undefined') {
@@ -160,13 +161,14 @@
             }
         });
 
-        // Configuración de Credenciales (Error del símbolo '@' removido)
+        // Credenciales fijas de tu proyecto de Supabase
         const SUPABASE_URL = "https://wdqpcwabyebhekqzghcs.supabase.co";
         const SUPABASE_ANON_KEY = "sb_publishable_XoHxcz5l7J3MjXPQJnBLbA_ytf668K7";
 
-        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        // Inicialización segura
+        const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        // Control del Formulario
+        // Referencias de Elementos de la interfaz de usuario
         const form = document.getElementById('lead-form');
         const emailInput = document.getElementById('lead-email');
         const submitBtn = document.getElementById('btn-submit');
@@ -178,7 +180,7 @@
                 
                 const email = emailInput.value.trim();
                 
-                // Bloquear UI durante la carga
+                // Bloquear el botón durante el envío para evitar duplicaciones
                 submitBtn.disabled = true;
                 submitBtn.innerText = "Registrando...";
                 
@@ -187,13 +189,14 @@
                 }
 
                 try {
-                    const { error } = await supabase
+                    // Inserción de datos limpia
+                    const { error } = await supabaseClient
                         .from('leads')
                         .insert([{ email: email }]);
 
                     if (error) throw error;
 
-                    // Caso de Éxito
+                    // Manejo exitoso
                     if (messageTxt) {
                         messageTxt.innerText = "¡Excelente! Ya formas parte del Lab.";
                         messageTxt.className = "text-xs mt-3 text-emerald-400 font-medium block text-center";
@@ -201,14 +204,14 @@
                     emailInput.value = ""; 
                     
                 } catch (error) {
-                    console.error("Error detectado en Supabase:", error);
-                    // Caso de Error
+                    console.error("Error en base de datos:", error);
+                    // Captura del error en UI
                     if (messageTxt) {
                         messageTxt.innerText = "Hubo un problema o este correo ya está registrado.";
                         messageTxt.className = "text-xs mt-3 text-brandOrange font-medium block text-center";
                     }
                 } finally {
-                    // Desbloquear UI
+                    // Restauración del estado del botón
                     submitBtn.disabled = false;
                     submitBtn.innerText = "Unirse a la lista";
                 }
